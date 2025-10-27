@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     echo 'Pushing Docker image to Docker Hub...'
-                    docker.withRegistry("${REGISTRY}", "${REGISTRY_CREDENTIALS}") {
+                    docker.withRegistry("${REGISTRY}", "${REGISTRY_CREDENTIALS}") { 
                         def image = docker.image("${IMAGENAME}:${env.BUILD_NUMBER}")
                         image.push()
                         image.push('latest')
