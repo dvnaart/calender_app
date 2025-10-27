@@ -1,52 +1,39 @@
 pipeline {
     agent any
-
     environment {
         IMAGENAME = 'devinaputri/calender_app'
-        REGISTRY = ''
-        REGISTRY_CREDENTIALS = 'dockerhub-credentials'
+        REGISTRY = 'https://index.docker.io/v1/'
+        REGISTRYCREDENTIALS = 'dockerhub-credentials'
     }
-
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out source code...'
                 checkout scm
             }
         }
-
         stage('Build Docker Image') {
             steps {
                 script {
-                    echo 'Building Docker image...'
-                    docker.build("${env.IMAGENAME}:${env.BUILD_NUMBER}")
+                    docker.build("${IMAGENAME}:${env.BUILD_NUMBER}")
                 }
             }
         }
-
         stage('Push Docker Image') {
             steps {
                 script {
-                    echo 'Pushing Docker image to Docker Hub...'
-                    docker.withRegistry("${env.REGISTRY}", "${env.REGISTRY_CREDENTIALS}") {
-                        def image = docker.image("${env.IMAGENAME}:${env.BUILD_NUMBER}")
-                        image.push()
-                        image.push('latest')
-                    }
+                    docker.withRegistry("${REGISTRY}",
+"${REGISTRYCREDENTIALS}") {
+                        def tag = "${IMAGENAME}:${env.BUILD_NUMBER}"
+                        docker.image(tag).push()
+                        docker.image(tag).push('latest')
+}
                 }
             }
         }
     }
-
     post {
-        success {
-            echo 'Pipeline finished successfully.'
-        }
-        failure {
-            echo 'Pipeline failed.'
-        }
         always {
-            cleanWs()
+            echo 'Pipeline finished'
         }
     }
 }
