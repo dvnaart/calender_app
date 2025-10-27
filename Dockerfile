@@ -3,7 +3,7 @@ WORKDIR /app
 RUN npm install -g expo-cli
 COPY package*.json ./
 RUN npm install
-RUN npx expo install react-native-web@~0.19.6 react-dom@18.2.0 @expo/webpackconfig@^19.0.0
+RUN npx expo install react-native-web@~0.19.6 react-dom@18.2.0 @expo/webpack-config@^19.0.0
 COPY . .
 RUN npx expo export:web
 FROM nginx:alpine
