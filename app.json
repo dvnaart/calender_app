@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "study",
+    "slug": "study",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {},
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {}
+    },
+    "web": {}
+  }
+}

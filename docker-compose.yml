@@ -1,0 +1,7 @@
+services:
+expo-app:
+build: .
+container_name: calender_app
+ports:
+- "8081:80"
+restart: unless-stopped
