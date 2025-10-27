@@ -14,17 +14,14 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('Build Docker Image') {
             steps {
                 script {
                     echo 'Building Docker image...'
                     def image = docker.build("${IMAGENAME}:${env.BUILD_NUMBER}")
-                    env.IMAGE_ID = image.id
                 }
             }
         }
-
         stage('Push Docker Image') {
             steps {
                 script {
