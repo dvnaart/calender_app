@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGENAME = 'devinaputri/calender_app'
-        REGISTRY = ''
+        REGISTRY = ''  // <--- INI BARIS YANG HILANG. HARUS DITAMBAHKAN
         REGISTRY_CREDENTIALS = 'dockerhub-credentials'
     }
 
