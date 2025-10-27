@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGENAME = 'devinaputri/calender_app'
-        REGISTRY = ''  
+        REGISTRY = ''
         REGISTRY_CREDENTIALS = 'dockerhub-credentials'
     }
 
@@ -14,20 +14,22 @@ pipeline {
                 checkout scm
             }
         }
+
         stage('Build Docker Image') {
             steps {
                 script {
                     echo 'Building Docker image...'
-                    def image = docker.build("${IMAGENAME}:${env.BUILD_NUMBER}")
+                    docker.build("${env.IMAGENAME}:${env.BUILD_NUMBER}")
                 }
             }
         }
+
         stage('Push Docker Image') {
             steps {
                 script {
                     echo 'Pushing Docker image to Docker Hub...'
-                    docker.withRegistry("${REGISTRY}", "${REGISTRY_CREDENTIALS}") { 
-                        def image = docker.image("${IMAGENAME}:${env.BUILD_NUMBER}")
+                    docker.withRegistry("${env.REGISTRY}", "${env.REGISTRY_CREDENTIALS}") {
+                        def image = docker.image("${env.IMAGENAME}:${env.BUILD_NUMBER}")
                         image.push()
                         image.push('latest')
                     }
